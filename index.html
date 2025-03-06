@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Form Redirect</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        let latitude = position.coords.latitude;
+                        let longitude = position.coords.longitude;
+                        let formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd4cSO10dTx34EItitsbzyYo5OUSocLvklALv-vQycFfJbxrA/viewform?";
+                        
+                        // Append the GPS coordinates to the Google Form URL
+                        formURL += "usp=pp_url";
+                        formURL += "&entry.2046600963=Auto GPS Location";  // Site Name (optional)
+                        formURL += "&entry.1767689929=" + latitude; // Latitude Field
+                        formURL += "&entry.983482305=" + longitude; // Longitude Field
+                        
+                        // Redirect to Google Form
+                        window.location.href = formURL;
+                    },
+                    function(error) {
+                        alert("Please allow location access to continue.");
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body onload="getLocation()">
+    <h2>Fetching GPS Location...</h2>
+</body>
+</html>
